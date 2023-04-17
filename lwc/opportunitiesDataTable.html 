@@ -1,0 +1,38 @@
+<template>
+  <lightning-datatable
+    key-field="Id"
+    data={opportunities}
+    columns={columns}
+    onrowselection={getSelectedName}
+    hide-checkbox-column
+    show-row-number-column
+    searchable
+    sortable
+    pagination
+  >
+  </lightning-datatable>
+</template>
+
+<script>
+import { LightningElement, api } from 'lwc';
+
+export default class OpportunitiesDataTable extends LightningElement {
+  // Get the list of opportunities to display
+  @api opportunities;
+
+  // Define the columns to be displayed in the table
+  columns = [
+    { label: 'Opportunity Owner Name', fieldName: 'OwnerName' },
+    { label: 'Opportunity Stage', fieldName: 'Stage' },
+    { label: 'Opportunity Amount', fieldName: 'Amount', type: 'currency' },
+    { label: 'Opportunity Close Date', fieldName: 'CloseDate', type: 'date' }
+  ];
+
+  // Get the selected opportunities
+  getSelectedName(event) {
+    const selectedRows = event.detail.selectedRows;
+    // Display selected rows
+    alert(JSON.stringify(selectedRows));
+  }
+}
+</script>
